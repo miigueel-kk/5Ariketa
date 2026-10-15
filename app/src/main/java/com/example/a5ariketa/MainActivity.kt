@@ -112,19 +112,18 @@ fun GGIKalkulua(modifier: Modifier = Modifier) {
                 val altueraMetrotan = altuera.replace(",",".").toDoubleOrNull()?.div(100)
                 val adinaZbk = adina.toDoubleOrNull()
 
-                val sexuaZbk = if (
-                    sexua.trim().lowercase() == "gizon" || sexua.trim().lowercase() == "gizon" || sexua.trim().lowercase() == "g"
-                ) {
-                    1.0
-                } else {
-                    0.0
+               val sexuaGarbia = sexua.trim().lowercase()
+
+                val sexuaZbk: Double? = when (sexuaGarbia) {
+                    "gizon", "g" -> 1.0
+                    "emakumea", "e" -> 0.0
+                    else -> null
                 }
 
-                if (pisuaZbk != null && altueraMetrotan != null && altueraMetrotan > 0 && adinaZbk != null) {
+                if (pisuaZbk != null && altueraMetrotan != null && altueraMetrotan > 0 && adinaZbk != null && sexuaZbk != null) {
                     val gmi = pisuaZbk / (altueraMetrotan * altueraMetrotan)
                     val ggi = (1.20 * gmi) + (0.23 * adinaZbk) - (10.8 * sexuaZbk) - 5.4
 
-                    // Por esto:
                     val gmiBiribilduta = Math.round(gmi * 100.0) / 100.0
                     val ggiBiribilduta = Math.round(ggi * 100.0) / 100.0
 
@@ -140,7 +139,7 @@ fun GGIKalkulua(modifier: Modifier = Modifier) {
             Text(
                 text = gmiErantzuna
             )
-
+1
             Text(
                 text = ggiErantzuna
             )
