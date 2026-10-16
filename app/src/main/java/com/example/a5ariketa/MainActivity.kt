@@ -8,7 +8,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -24,6 +26,11 @@ import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.a5ariketa.ui.theme._5AriketaTheme
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.modifier.modifierLocalConsumer
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import kotlin.coroutines.coroutineContext
 
 class MainActivity : ComponentActivity() {
@@ -56,12 +63,21 @@ fun GGIKalkulua(modifier: Modifier = Modifier) {
         )
 
         Column(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(36.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.spacedBy(36.dp)
         ) {
             Text(
-                text = "Gorputz Gantzaren Indizearen Kalkulagailua"
+                text = "Gorputz Gantzaren Indizearen Kalkulagailua",
+                fontSize = 28.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center
             )
+
+            Spacer (modifier = modifier.height(36.dp))
+
             TextField(
                 value = pisua,
                 onValueChange = { pisua = it },
@@ -72,12 +88,13 @@ fun GGIKalkulua(modifier: Modifier = Modifier) {
                 }
             )
 
+
             TextField(
                 value = altuera,
                 onValueChange = { altuera = it },
                 label = {
                     Text(
-                        "Altuera (cm)"
+                        "Altuera (m)"
                     )
                 }
             )
@@ -112,7 +129,7 @@ fun GGIKalkulua(modifier: Modifier = Modifier) {
                 val altueraMetrotan = altuera.replace(",",".").toDoubleOrNull()?.div(100)
                 val adinaZbk = adina.toDoubleOrNull()
 
-               val sexuaGarbia = sexua.trim().lowercase()
+                val sexuaGarbia = sexua.trim().lowercase()
 
                 val sexuaZbk: Double? = when (sexuaGarbia) {
                     "gizon", "g" -> 1.0
